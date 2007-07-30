@@ -81,8 +81,7 @@ module TableFor2
     protected
 
     def simple_column(method, options, &block)
-      col = TableColumn.new( @template, @builder, options )
-      col.title ||= method.to_s.titleize 
+      col = TableColumn.new( @template, @builder, options.reverse_merge(:title => method.to_s.titleize) )
 
       if block_given?
         col.content = lambda { |item| block.call( item.send(method) ) }
@@ -160,7 +159,7 @@ module TableFor2
       end
 
       @builder.td( @cell_attributes.merge(:class => @cell_attributes[:class].to_s) ) { |td|
-        td << content
+        td << (" " * 10) + content.to_s + "\n"
       }
     end
 
