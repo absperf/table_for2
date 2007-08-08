@@ -114,7 +114,7 @@ module TableFor2
     end
 
     def icon(name, options = {})
-      @template.image_tag("icons/#{name}", :title => name.to_s.titleize)
+      @template.image_tag("icons/#{name}.png", :title => name.to_s.titleize)
     end
   end
 
