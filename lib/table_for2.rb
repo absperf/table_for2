@@ -109,7 +109,7 @@ module TableFor2
         "\n  " + 
         @template.link_to( icon(:show), :action => 'show', :id => item.id ) + "\n  " +
         @template.link_to( icon(:edit), :action => 'edit', :id => item.id ) + "\n  " +
-        @template.link_to( icon(:delete), :action  => 'delete', :id => item.id ) + "\n"
+        @template.link_to( icon(:delete), :action  => 'destroy', :id => item.id ) + "\n"
       }
     end
 
