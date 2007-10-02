@@ -141,7 +141,13 @@ module TableFor2
     end
 
     def header_cell
-      @builder.th( title || "&nbsp;", :class => @cell_attributes[:class].to_s )
+      # if there's a title, we want builder to html-escape it
+      if @title
+        @builder.th( @title, :class => @cell_attributes[:class].to_s )
+      else
+        # but if there's no title, do it in a block, so builder doesnt escape the '&'
+        @builder.th( :class => @cell_attributes[:class].to_s ){ |th| th << "&nbsp;" }
+      end
     end
 
     def body_cell( item )
@@ -154,7 +160,7 @@ module TableFor2
 
       when Date, Time, DateTime
         @cell_attributes[:class] << 'datetime'
-        content = @template.format_datetime( content )
+        content = @template.respond_to?(:format_datetime) ? @template.format_datetime( content ) : content.to_s(:short)
 
       end
 
@@ -171,7 +177,7 @@ module TableFor2
     def content= x
       @content = x
     end
-
+    
     protected
 
     def css_classize(text)
