@@ -78,6 +78,18 @@ module TableFor2
       }
     end
 
+    def default_actions_links( options = {} )
+      icons = options[:only] || [:show, :edit, :delete]
+      icons.delete(options[:except])
+
+      lambda { |item|
+        "\n  " + 
+        (icons.include?(:show) ? @template.link_to( icon(:show), :action => 'show', :id => item.id ) + "\n  " : "" ) +
+        (icons.include?(:edit) ? @template.link_to( icon(:edit), :action => 'edit', :id => item.id ) + "\n  " : "" ) +
+        (icons.include?(:delete) ? @template.link_to( icon(:delete), :action  => 'destroy', :id => item.id ) + "\n" : "")
+      }
+    end
+
     protected
 
     def simple_column(method, options, &block)
@@ -102,18 +114,6 @@ module TableFor2
 
     def idize( object, method = nil)
       [object.class.to_s.underscore, method, object.id].compact.join('_')
-    end
-
-    def default_actions_links( options = {} )
-      icons = options[:only] || [:show, :edit, :delete]
-      icons.delete(options[:except])
-
-      lambda { |item|
-        "\n  " + 
-        (icons.include?(:show) ? @template.link_to( icon(:show), :action => 'show', :id => item.id ) + "\n  " : "" ) +
-        (icons.include?(:edit) ? @template.link_to( icon(:edit), :action => 'edit', :id => item.id ) + "\n  " : "" ) +
-        (icons.include?(:delete) ? @template.link_to( icon(:delete), :action  => 'destroy', :id => item.id ) + "\n" : "")
-      }
     end
 
     def icon(name, options = {})
@@ -180,7 +180,7 @@ module TableFor2
     def content= x
       @content = x
     end
-    
+
     protected
 
     def css_classize(text)
