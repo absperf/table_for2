@@ -1,0 +1,29 @@
+TableFor2
+=========
+
+Makes tables easy
+
+
+Example
+=======
+
+    table_for @posts[0..100] do |t| 
+
+      t.column :title
+
+      t.column do |c|
+        c.title = "Body"
+        c.cell_attributes[:class] << 'text'
+        c.content do |post|
+          link_to truncate(post.text), post_path(post)
+        end
+      end
+
+      t.column :default_actions, :only => [:show, :edit]
+
+    end
+
+
+Copyright (c) 2007 Paul Sadauskas @ Absolute Performance, Inc
+pjs@absolute-performance.com
+released under the MIT license
