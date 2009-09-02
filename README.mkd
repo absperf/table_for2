@@ -25,5 +25,7 @@ Example
 
 
 Copyright (c) 2007 Paul Sadauskas @ Absolute Performance, Inc
+
 pjs@absolute-performance.com
-released under the MIT license
+
+Released under the MIT license
